@@ -26,25 +26,43 @@ V = zeros(length(freq), 3, t/h); % t/h is the total number of indicies 'k'
 
 for f = 1:length(freq)
     for k = 1:t/h
-        V(f, in, k) = 5 * sin(2 * pi * freq(f) * k);
-        V(f, r, k) = V(f, in, k) - V(c, k); % Equation #8
+        V(f, in, k) = 5 * sin(2 * pi * freq(f) * (k*h));
         V(f, c, k+1) = (1 - (h / (R * C))) * V(f, c, k) + (h / (R * C)) * V(f, in, k); % Equation #10
+        V(f, r, k) = V(f, in, k) - V(f, c, k);                                         % Equation #8
     end
 end
 
 
 %% Plotting of data
 
-figure;
+figure(1);
 hold on;
-% plot(squeeze(V(1, in, :)));
- plot(squeeze(V(1, c, :)));
-% plot(squeeze(V(1, r, :)));
+plot(squeeze(V(1, c, :)));
+plot(squeeze(V(1, r, :)));
+plot(squeeze(V(1, in, :)));
 hold off;
-xlabel("Time (milliseconds)");
+%set(gca, 'XTick', 0:k/t:k)
+%set(gca, 'XTickLabel', 0:t)
+xlabel("Time (s)");
 ylabel("Voltage (V)");
 title("Approximated Charge Curve vs Time");
-legend("V_c", "V_in", "location", "best");
+legend("V_c", "V_r", "V_i_n", "location", "best");
+xlim([0 0.04 / h]);
+
+% figure(2);
+% hold on;
+% plot(squeeze(V(2, in, :)));
+% plot(squeeze(V(2, c, :)));
+% plot(squeeze(V(2, r, :)));
+% hold off;
+% set(gca, 'XTick', 0:k/t:k)
+% set(gca, 'XTickLabel', 0:t)
+% xlabel("Time (s)");
+% ylabel("Voltage (V)");
+% title("Approximated Charge Curve vs Time");
+% legend("V_R", "V_c", "V_in", "location", "best");
+% xlim([0 k]);
+
 
 % figure;
 % hold on;
