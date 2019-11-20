@@ -39,11 +39,13 @@ hold on;
 plot(V(c, :));
 plot(V(in, :));
 hold off;
-xlabel("Time (milliseconds)");
+set(gca, 'XTick', 0:6250/5:k)
+set(gca, 'XTickLabel', 0:5)
+xlabel("Time (s)");
 ylabel("Voltage (V)");
 title("Approximated Charge Curve vs Time");
 legend("V_c", "V_in", "location", "best");
-xlim([0 5000]);
+xlim([0 k]);
 ylim([0 5]);
 
 %% Task 2
@@ -55,7 +57,7 @@ fplot(@(k) 5*(1-exp(-k/(R*C))), [0 5]);
 % this is |V_in| = 5.
 fplot(5, [0 5]);
 hold off;
-xlabel("Time (seconds)");
+xlabel("Time (s)");
 ylabel("Voltage (V)");
 title("Theoretical Charge Curve vs Time");
 legend("V_c", "V_in", "location", "best");
@@ -63,4 +65,4 @@ xlim([0 5]);
 ylim([0 5]);
 
 % A comparison of the charges:
-disp((5 * (1 - exp(-t / (R*C)))) - V(c, 5000));
+disp((5 * (1 - exp(-t / (R*C)))) - V(c, end));
