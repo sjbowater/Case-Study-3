@@ -5,61 +5,70 @@ clear all;
 close all;
 %% Equations of Note
 
-t = 5; % total time of 5 seconds, as seen in figure 2 of the handout. 
+t = 5e-3; % total time of 5 seconds, as seen in figure 2 of the handout. 
+R = 1e3; % 1000; % 1 k ohms
+C = 1e-6; % 1e-6; % 1 micro F
+h = 8e-5; % sampling rate in seconds per sample
+hprime = 8e-4;
 
-R = 1; % 1000; % 1 k ohms
-C = 1; % 1e-6; % 1 micro F
-h = 8e-4; % sampling rate in seconds per sample
+timesteps = 0:h:t;
+Vinput = 5 * ones(1, length(timesteps));
+Vresistor = zeros(1, length(timesteps));
+Vcapacitor = zeros(1, length(timesteps));
 
-%% Construction and Execution of the model 
+%% Construction and Execution of the model with h.
+for k = 1:length(timesteps)
+    Vresistor(k) = Vinput(k) - Vcapacitor(k);                                          % Equation #08
+    Vcapacitor(k+1) = (1 - (h / (R * C))) * Vcapacitor(k) + (h / (R * C)) * Vinput(k); % Equation #10
+end
+%% Plotting of data
+figure(1);
+hold on;
+plot(Vcapacitor(:));
+plot(Vinput(:));
+hold off;
+xlabel("Time (s)");
+ylabel("Voltage (V)");
+title("Approximated Charge Curve vs Time (Frequency: " + num2str(h) + " s/sample)");
+legend("V_c", "V_in", "location", "best");
+set(gca, 'XTick', 0:(length(timesteps)-1)/5:length(timesteps)-1)
+set(gca, 'XTickLabel', 0:1e-3:t)
+xlim([0 t / h + 0.01]);
 
-% |V| is the voltage in the system across all the different samples.  
-% |V|_1 is V_R
-% |V|_2 is V_C
-% |V|_3 is V_in
-r = 1;
-c = 2;
-in = 3;
-
-V = zeros(3, t/h); % t/h is the total number of indicies 'k'
-V(3,:) = 5; % V_in is a constant 5V the entire time. 
-
-for k = 1:t/h
-    V(r, k) = V(in, k) - V(c, k);                                         % Equation #8
-    V(c, k+1) = (1 - (h / (R * C))) * V(c, k) + (h / (R * C)) * V(in, k); % Equation #10
+%% Construction and Execution of the model with h'.
+for k = 1:length(timesteps)
+    Vresistor(k) = Vinput(k) - Vcapacitor(k);                                                    % Equation #08
+    Vcapacitor(k+1) = (1 - (hprime / (R * C))) * Vcapacitor(k) + (hprime / (R * C)) * Vinput(k); % Equation #10
 end
 
-%% Plotting of data
-
-figure;
+figure(2);
 hold on;
-plot(V(c, :));
-plot(V(in, :));
-hold off;
-set(gca, 'XTick', 0:k/t:k)
-set(gca, 'XTickLabel', 0:t)
-xlabel("Time (s)");
-ylabel("Voltage (V)");
-title("Approximated Charge Curve vs Time");
-legend("V_c", "V_in", "location", "best");
-xlim([0 k]);
-ylim([0 5]);
-
-%% Task 2
-% theoretical_output = 5 * (1 - exp(-t/(R*C)));
-figure;
-hold on;
-% this is the theoretical charge function
-fplot(@(k) 5*(1-exp(-k/(R*C))), [0 5]);
-% this is |V_in| = 5.
-fplot(5, [0 5]);
+plot(timesteps, Vcapacitor(1:end-1));
+plot(timesteps, Vinput(:));
 hold off;
 xlabel("Time (s)");
 ylabel("Voltage (V)");
-title("Theoretical Charge Curve vs Time");
+title("Approximated Charge Curve vs Time (Frequency: " + num2str(hprime) + " s/sample)");
 legend("V_c", "V_in", "location", "best");
-xlim([0 t]);
-ylim([0 5]);
+set(gca, 'XTick', 0:(length(timesteps)-1)/5:length(timesteps)-1)
+set(gca, 'XTickLabel', 0:1e-3:t)
+xlim([0 timesteps(5)])
 
-% A comparison of the charges:
-disp((5 * (1 - exp(-t / (R*C)))) - V(c, end));
+% %% Task 2
+% % theoretical_output = 5 * (1 - exp(-t/(R*C)));
+% figure;
+% hold on;
+% % this is the theoretical charge function
+% fplot(@(k) 5*(1-exp(-k/(R*C))), [0 t]);
+% % this is |V_in| = 5.
+% fplot(5, [0 t]);
+% hold off;
+% xlabel("Time (s)");
+% ylabel("Voltage (V)");
+% title("Theoretical Charge Curve vs Time");
+% legend("V_c", "V_in", "location", "best");
+% xlim([0 t]);
+% ylim([0 5]);
+% 
+% % A comparison of the charges:
+% disp((5 * (1 - exp(-t / (R*C)))) - Vcapacitor(end));
