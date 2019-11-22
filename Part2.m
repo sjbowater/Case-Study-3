@@ -27,8 +27,9 @@ V = zeros(length(freq), 3, t/h); % t/h is the total number of indicies 'k'
 for f = 1:length(freq)
     for k = 1:t/h
         V(f, in, k) = 5 * sin(2 * pi * freq(f) * (k*h));
-        V(f, c, k+1) = (1 - (h / (R * C))) * V(f, c, k) + (h / (R * C)) * V(f, in, k); % Equation #10
         V(f, r, k) = V(f, in, k) - V(f, c, k);                                         % Equation #8
+        V(f, c, k+1) = (1 - (h / (R * C))) * V(f, c, k) + (h / (R * C)) * V(f, in, k); % Equation #10
+
     end
 end
 
