@@ -56,7 +56,7 @@ legend("V_c", "V_in", "location", "best");
 
 %% Task 2
 % theoretical_output = 5 * (1 - exp(-t/(R*C)));
-figure;
+figure(3);
 hold on;
 % this is the theoretical charge function
 fplot(@(k) 5*(1-exp(-k/(R*C))), [0 t]);
