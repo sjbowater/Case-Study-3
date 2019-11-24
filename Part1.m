@@ -32,7 +32,7 @@ hold off;
 xlabel("Time (s)");
 ylabel("Voltage (V)");
 title("Approximated Charge Curve vs Time (Frequency: " + num2str(h) + " s/sample)");
-legend("V_c", "V_in", "location", "best");
+legend("V_c", "V_i_n", "location", "best");
 
 %% Construction and Execution of the model with h'.
 timestepsprime = 0:hprime:t;
