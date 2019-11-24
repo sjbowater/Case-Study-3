@@ -5,7 +5,7 @@ close all;
 
 %% implementation
 
-t = 0.04; % total time of 0.04 seconds, as seen in figure 4 of the handout. 
+t = 0.005; % total time of 0.04 seconds, as seen in figure 4 of the handout. 
 R = 1e3;  % 1000; % 1 k ohms
 C = 1e-6; % 1e-6; % 1 micro F
 h = 8e-6; % sampling rate in seconds per sample
@@ -91,3 +91,5 @@ hold off;
 xlabel("Logarithm of the Frequency in log(Hz)");
 ylabel("Logarithm of the Transfer Function in log(V)");
 title("Frequency vs Voltage");
+legend("H_c", "H_r");
+
