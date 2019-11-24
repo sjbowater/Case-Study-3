@@ -27,9 +27,9 @@ Vresistor50 = Vinput50 - Vcapacitor50(1:end-1); % Equation #08
 %% Plotting of data
 figure(1);
 hold on;
-plot(Vcapacitor50(:));
-plot(Vresistor50(:));
-plot(Vinput50(:));
+plot(Vcapacitor50);
+plot(Vresistor50);
+plot(Vinput50);
 hold off;
 xlabel("Time (s)");
 ylabel("Voltage (V)");
@@ -52,9 +52,9 @@ Vresistor1000 = Vinput1000 - Vcapacitor1000(1:end-1); % Equation #08
 %% Plotting of data
 figure(2);
 hold on;
-plot(Vcapacitor1000(:));
-plot(Vresistor1000(:));
-plot(Vinput1000(:));
+plot(Vcapacitor1000);
+plot(Vresistor1000);
+plot(Vinput1000);
 hold off;
 xlabel("Time (s)");
 ylabel("Voltage (V)");
