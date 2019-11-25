@@ -15,10 +15,10 @@ function Vout = RCfilter(Vin,h)
 %     will remain. 
 %     f_low  = 1 / (2 * pi * R * C2); % only frequencies lower than this
 %     will remain.
-    R1 = 470;
+    R1 = 68;
     R4 = 16;
     C2 = 33e-6;
-    C3 = 47e-6;
+    C3 = 68e-6;
         
     Vc2 = zeros(1, length(Vin));
     Vc3 = zeros(1, length(Vin));

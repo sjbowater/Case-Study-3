@@ -33,9 +33,9 @@ snapnow
 %% Filter a noisy signal
 
 % load('handel.mat');
-% load('noisyhandel.mat');
+load('noisyhandel.mat');
 % load('apollo11-main-landing.mat');
- load('noisy-apollo11-main-landing.mat');
+% load('noisy-apollo11-main-landing.mat');
 
 % set sampling interval to match sampling rate of the audio signal
 h = 1/Fs;
