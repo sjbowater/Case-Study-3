@@ -17,10 +17,10 @@ function Vout = RCfilter(Vin,h)
 %     will remain.
     t=length(Vin)*h;
     timesteps = 0:h:t;
-    R1 = 680;
+    R1 = 470;
     R4 = 16;
     C1 = 33e-6;
-    C2 = 14e-6;
+    C2 = 47e-6;
         
     Vc2 = 0;
     Vc3 = 0;
