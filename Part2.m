@@ -40,6 +40,11 @@ set(gca, 'XTickLabel', 0:0.01:t)
 xlim([0 t / h + 0.01]);
 
 %% Construction and Execution of the model at 1000Hz
+% In order for the graph to be legible, we must decrease the total
+% timestep. 
+
+t = 0.001;
+timesteps = 0:h:t;
 Vinput1000 = 5 * sin(2 * pi * 1000 * timesteps);
 Vcapacitor1000 = zeros(1,length(timesteps));
 
@@ -47,26 +52,24 @@ for i = 1:length(timesteps)
     Vcapacitor1000(i+1) = (1 - (h / (R * C))) * Vcapacitor1000(i) + (h / (R * C)) * Vinput1000(i); % Equation #10
 end
 
-Vresistor1000 = Vinput1000 - Vcapacitor1000(1:end-1); % Equation #08
-
+Vresistor1000 = Vinput1000 - Vcapacitor1000(1:end-1);                                              % Equation #08
 %% Plotting of data
 figure(2);
 hold on;
-plot(Vcapacitor1000);
-plot(Vresistor1000);
-plot(Vinput1000);
+plot(timesteps, Vcapacitor1000(1:end-1));
+plot(timesteps, Vresistor1000);
+plot(timesteps, Vinput1000);
 hold off;
 xlabel("Time (s)");
 ylabel("Voltage (V)");
 title("Approximated Charge Curve vs Time (Freq: 1000Hz)");
 legend("V_c", "V_r", "V_i_n", "location", "best");
-set(gca, 'XTick', 0:(length(timesteps)-1)/4:length(timesteps)-1)
-set(gca, 'XTickLabel', 0:0.01:t)
-xlim([0 t / h + 0.01]);
 
 %% Task 2.3: The Transfer Functions
 % notice that 10 is 10^1 and 10k is 10^4. |powers| is log(10) .. log(10k)
 % with steps in logarithmic units. 
+t = 0.04;
+timesteps = 0:h:t;
 powers = 1:0.001:4;
 Vc = 0;
 
