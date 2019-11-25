@@ -61,13 +61,6 @@ ylabel("Voltage (V)");
 title("Circuit C: Voltage (V) vs Time (s)");
 
 %% Circuit D
-% AD = [ 1 -1 -1  0  0  0;
-%        R  0  0 -1  0  0;
-%        0  0  R  0  0 -1;
-%        0  0  0  1  0  0;
-%        0  0  0  1 -1  0;
-%        0  0  0  1 -1 -1;
-%      ];
 
 AD = [  1 -1 -1  0  0  0;
        -R  0  0  1 -1  0;
