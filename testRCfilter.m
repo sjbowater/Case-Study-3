@@ -1,7 +1,7 @@
 %% Case study 3: Circuits as filters
 % *ESE 105* 
 %
-% *Name: FILL IN HERE*
+% *Name: Peyton Gozon and Stephanie Bowater*
 
 clear;
 close all;
@@ -32,10 +32,10 @@ snapnow
 
 %% Filter a noisy signal
 
-load('handel.mat');
+%load('handel.mat');
 % load('noisyhandel.mat');
 % load('apollo11-main-landing.mat');
-% load('noisy-apollo11-main-landing.mat');
+ load('noisy-apollo11-main-landing.mat');
 
 % set sampling interval to match sampling rate of the audio signal
 h = 1/Fs;
