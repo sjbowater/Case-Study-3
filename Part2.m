@@ -79,8 +79,8 @@ for p = 1:length(powers)
     
     Vr = Vin - Vc;
     
-    Hc(p) = max(Vc);
-    Hr(p) = max(Vr);
+    Hc(p) = max(Vc) / max(Vin);
+    Hr(p) = max(Vr) / max(Vin);
 end
 
 figure;
