@@ -136,8 +136,8 @@ end
 
 figure;
 hold on;
-plot(powers, (HC));
-plot(powers, (HD));
+plot(powers, log(HC));
+plot(powers, log(HD));
 hold off;
 legend("H_C(f)", "H_D(f)");
 xlabel("Logarithm of the Frequency in log(Hz)");

@@ -11,13 +11,15 @@
 % Vout - time-series vector representing the output voltage of a circuit
 
 function Vout = RCfilter(Vin,h)
-%     f_high = 1 / (2 * pi * R1 * C1);
-%     f_low  = 1 / (2 * pi * R * C2);
+%     f_high = 1 / (2 * pi * R1 * C1); % only frequencies higher than this
+%     will remain. 
+%     f_low  = 1 / (2 * pi * R * C2); % only frequencies lower than this
+%     will remain.
     t=length(Vin)*h;
     timesteps = 0:h:t;
-    R1 = 330;
-    R4 = 100;
-    C1 = 0.68e-6;
+    R1 = 680;
+    R4 = 16;
+    C1 = 33e-6;
     C2 = 14e-6;
         
     Vc2 = 0;
