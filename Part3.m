@@ -46,7 +46,7 @@ legend("Vin", "Vout", "location", "best");
 
 xlabel("Time (s)");
 ylabel("Voltage (V)");
-title("Circuit C: Voltage (V) vs Time (s)");
+title("Circuit C");
 
 %% Circuit D
 
@@ -85,7 +85,7 @@ legend("Vin", "Vout", "location", "best");
 
 xlabel("Time (s)");
 ylabel("Voltage (V)");
-title("Circuit D: Voltage (V) vs Time (s)");
+title("Circuit D");
 
 %% Transfer Functions
 % notice that 10 is 10^1 and 10k is 10^4. |powers| is log(10) .. log(10k)

@@ -15,15 +15,13 @@ function Vout = RCfilter(Vin,h)
 %     will remain. 
 %     f_low  = 1 / (2 * pi * R * C2); % only frequencies lower than this
 %     will remain.
-    t=length(Vin)*h;
-    timesteps = 0:h:t;
     R1 = 470;
     R4 = 16;
-    C1 = 33e-6;
-    C2 = 47e-6;
+    C2 = 33e-6;
+    C3 = 47e-6;
         
-    Vc2 = 0;
-    Vc3 = 0;
+    Vc2 = zeros(1, length(Vin));
+    Vc3 = zeros(1, length(Vin));
 
     A = [   1  -1  -1   0   0   0;
           -R1   0   0   1  -1   0;
@@ -33,12 +31,11 @@ function Vout = RCfilter(Vin,h)
             0   0 -R4   0   1   0;
         ];
 
-    for k = 1:length(timesteps)-1
+    for k = 1:length(Vin)
         x = linsolve(A, [0, 0, 0, Vin(k), Vc2(k), Vc3(k)]');
-        Vc2(k+1) = Vc2(k) + (h / C1) * x(2);
-        Vc3(k+1) = Vc3(k) + (h / C2) * x(3);
+        Vc2(k+1) = Vc2(k) + (h / C2) * x(2);
+        Vc3(k+1) = Vc3(k) + (h / C3) * x(3);
     end
 
     Vout = (Vc2 - Vc3).';
-    Vout = Vout(1:end-1);
 end

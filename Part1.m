@@ -29,7 +29,7 @@ plot(timesteps, Vinput);
 hold off;
 xlabel("Time (s)");
 ylabel("Voltage (V)");
-title("Approximated Charge Curve vs Time (Frequency: " + num2str(h) + " s/sample)");
+title("Approximated Charge Curve vs Time");
 legend("V_c", "V_i_n", "location", "best");
 
 %% Construction and Execution of the model with h'.
@@ -48,7 +48,7 @@ plot(timestepsprime, Vinputprime);
 hold off;
 xlabel("Time (s)");
 ylabel("Voltage (V)");
-title("Approximated Charge Curve vs Time (Frequency: " + num2str(hprime) + " s/sample)");
+title("Approximated Charge Curve vs Time");
 legend("V_c", "V_in", "location", "best");
 
 %% Task 2

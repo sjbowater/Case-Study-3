@@ -33,7 +33,7 @@ plot(Vinput50);
 hold off;
 xlabel("Time (s)");
 ylabel("Voltage (V)");
-title("Approximated Charge Curve vs Time (Freq: 50 Hz)");
+title("Approximated Charge Curve vs Time");
 legend("V_c", "V_r", "V_i_n", "location", "best");
 set(gca, 'XTick', 0:(length(timesteps)-1)/4:length(timesteps)-1)
 set(gca, 'XTickLabel', 0:0.01:t)
@@ -62,7 +62,7 @@ plot(timesteps, Vinput1000);
 hold off;
 xlabel("Time (s)");
 ylabel("Voltage (V)");
-title("Approximated Charge Curve vs Time (Freq: 1000Hz)");
+title("Approximated Charge Curve vs Time");
 legend("V_c", "V_r", "V_i_n", "location", "best");
 
 %% Task 2.3: The Transfer Functions
