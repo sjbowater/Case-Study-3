@@ -4,7 +4,7 @@ clear all;
 close all;
 
 %% Circuit C
-t = 0.01;    % Total time simulation runs for, as seen in Figure 7. It's worth noting that if t = 0.001, the simulation appears better, but still wholly inacurate. 
+t = 0.01;    % Total time simulation runs for, as seen in Figure 7. 
 h = 8e-6;    % Sample rate in seconds per second; this is the same rate from Part 1.
 C = 0.68e-6; % C_1 = C_2 = C_3 = 0.68 microF. 
 R = 330;     % R_1 = R_2 = R_4 = 330 Ohms
@@ -27,26 +27,14 @@ Vc3  = zeros(1, length(timesteps));
 Vout = zeros(1, length(timesteps));
 Vin  = 5 * sin(2 * pi * f1 * timesteps) + sin(2 * pi * f2 * timesteps); % Equation 26.
 
-% These could either be scalar or vector, as the values are tossed between
-% each iteration of the loop. 
-i1 = zeros(1, length(timesteps));
-i3 = zeros(1, length(timesteps));
-
 for k = 1:length(timesteps)
     % Solve the circuit. 
     x = linsolve(AC, [0, Vin(k), Vc1(k), Vc3(k), 0, 0]');
-    % Manually storing values from x in Ax = b. These stored values are
-    % used in the update equations. 
-    i1(k)   = x(1);
-%   i2      = x(2); i2 is never used outside of A.
-    i3(k)   = x(3);
-%   Vin(k)  = x(4); Vin is already calculated for all timesteps. 
-    Vc1(k)  = x(4) - x(5);
     Vout(k) = x(6);
     
     % Update Equations
-    Vc1(k+1) = Vc1(k) + (h / C) * i1(k); % Equation 24
-    Vc3(k+1) = Vc3(k) + (h / C) * i3(k); % Equation 25
+    Vc1(k+1) = (x(4) - x(5)) + (h / C) * x(1); % Equation 24
+    Vc3(k+1) =        Vc3(k) + (h / C) * x(3); % Equation 25
 end
 
 figure;
@@ -61,13 +49,6 @@ ylabel("Voltage (V)");
 title("Circuit C: Voltage (V) vs Time (s)");
 
 %% Circuit D
-% AD = [ 1 -1 -1  0  0  0;
-%        R  0  0 -1  0  0;
-%        0  0  R  0  0 -1;
-%        0  0  0  1  0  0;
-%        0  0  0  1 -1  0;
-%        0  0  0  1 -1 -1;
-%      ];
 
 AD = [  1 -1 -1  0  0  0;
        -R  0  0  1 -1  0;
@@ -89,9 +70,6 @@ Vin  = 5 * sin(2 * pi * f1 * timesteps) + sin(2 * pi * f2 * timesteps); % Equati
 for k = 1:length(timesteps)
     % Solve the circuit. 
     x = linsolve(AD, [0, 0, 0, Vin(k), Vc2(k), Vc3(k)]');
-    % Manually storing values from x in Ax = b. These stored values are
-    % used in the update equations. 
-
     Vc2(k+1) = Vc2(k) + (h / C) * x(2); % Equation 24
     Vc3(k+1) = Vc3(k) + (h / C) * x(3); % Equation 25
 end
@@ -118,7 +96,6 @@ Vc1_C  = zeros(1, length(timesteps));
 Vc3_C  = zeros(1, length(timesteps));
 Vc2_D  = zeros(1, length(timesteps));
 Vc3_D  = zeros(1, length(timesteps));
-
 Vout_C = zeros(1, length(timesteps));
 Vout_D = zeros(1, length(timesteps));
 
